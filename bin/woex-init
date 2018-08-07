@@ -1,0 +1,84 @@
+#!/usr/bin/env node
+
+const download = require('download-git-repo')
+const program = require('commander')
+const exists = require('fs').existsSync
+const path = require('path')
+const ora = require('ora')
+const home = require('user-home')
+const tildify = require('tildify')
+const chalk = require('chalk')
+const inquirer = require('inquirer')
+const rm = require('rimraf').sync
+
+const generate = require('../lib/generate')
+const logger = require('../lib/logger')
+
+program
+    .usage('<project-name>')
+    .option('-c --clone', 'use git clone')
+    .option('--offline', 'use cached template')
+
+
+program.on('--help', () => {
+    console.log('Examples:')
+    console.log()
+    console.log(chalk.gray('     # create a new project with the template'))
+    console.log('    $ woex init my-project')
+    console.log()
+})
+
+/**
+ * Help.
+ */
+
+function help () {
+  program.parse(process.argv)
+  if (program.args.length < 1) return program.help()
+}
+help()
+
+
+const rawName =  program.args[0];
+
+const tmp = path.join(__dirname, '../dist')
+
+const inWorkspace = !rawName || '.' === rawName
+//目录
+const name = inWorkspace ? path.relative('../', process.cwd()) : rawName
+const toDir = path.resolve(rawName || '.')
+
+const clone = program.clone || false
+
+
+console.log()
+process.on('exit', () => {
+  console.log()
+})
+
+if (inWorkspace || exists(toDir)) {
+  inquirer.prompt([{
+    type: 'confirm',
+    message: inWorkspace ? '确定在当前目录生成工程？' : '目标目录已存在，是否继续？',
+    name: 'ok'
+  }]).then(answers => {
+    if (answers.ok)
+      run()
+  })
+} else {
+  run()
+}
+
+
+function run(){
+  console.log(chalk.grey('开始执行模块生成程序'))
+
+  generate(name, tmp, toDir, err => {
+    if (err) logger.fatal(err)
+          console.log()
+    logger.success('Generated "%s".', name)
+  })
+}
+
+
+

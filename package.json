@@ -1,0 +1,32 @@
+{
+  "name": "woex-cli",
+  "version": "2.0.1",
+  "keywords": ["woex", "cli"],
+  "bin": {
+    "woex": "bin/woex",
+    "woex-init": "bin/woex-init"
+  },
+  "dependencies": {
+    "async": "^2.4.0",
+    "chalk": "~2.1.0",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.9.0",
+    "consolidate": "^0.14.0",
+    "download-git-repo": "^1.0.1",
+    "handlebars": "^4.0.5",
+    "inquirer": "^6.0.0",
+    "metalsmith": "^2.1.0",
+    "minimatch": "^3.0.0",
+    "multimatch": "^2.1.0",
+    "ora": "^1.3.0",
+    "read-metadata": "^1.0.0",
+    "request": "^2.67.0",
+    "rimraf": "^2.5.0",
+    "semver": "^5.1.0",
+    "tildify": "^1.2.0",
+    "uid": "0.0.2",
+    "user-home": "^2.0.0",
+    "validate-npm-package-name": "^3.0.0"
+  }
+}
