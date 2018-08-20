@@ -10,7 +10,7 @@
         {{#lint}}
         "lint": "eslint --ext .js,.vue src{{#unit}} test/unit{{/unit}}{{#e2e}} test/e2e/specs{{/e2e}}",
         {{/lint}}
-        "build": "export NODE_ENV=preview && onode build/preview.js",
+        "build": "export NODE_ENV=preview && node build/preview.js",
         "release": "export NODE_ENV=release && node build/release.js"
     },
     "dependencies": {
@@ -65,7 +65,8 @@
         "webpack-dev-server": "^2.9.1",
         "webpack-merge": "^4.1.0",
         "weex-vue-precompiler": "^0.1.19",
-        "weex-vue-render": "^1.0.26"
+        "weex-vue-render": "^1.0.26",
+        "velocity-animate": "^1.5.2"
     },
     "engines": {
         "node": ">= 6.0.0",

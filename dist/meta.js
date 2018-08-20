@@ -51,6 +51,10 @@ module.exports = {
       type:'confirm',
       message: 'Use ESLint to lint your code?'
     },
+    router:{
+      type:'confirm',
+      message: 'Use vue-router to manage your project?'
+    },
     autoInstall: {
       type: 'list',
       message: 'Should we run `npm install` for you after the project has been created?(recommended)',
