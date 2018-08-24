@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+
+const program = require('commander')
+const path = require('path')
+const chalk = require('chalk')
+const logger = require('../lib/logger')
+const quickGenerate = require('../lib/quick')
+
+program
+.usage('<project-name>')
+
+program.on('--help', () => {
+  console.log('Examples:')
+  console.log()
+  console.log(chalk.gray('     # quick create a new project with the template'))
+  console.log('    $ woex quick my-project')
+  console.log()
+})
+
+function help () {
+  program.parse(process.argv)
+  if (program.args.length < 1) return program.help()
+}
+help()
+
+const rawName =  program.args[0]
+
+const tmp = path.join(__dirname, '../dist')
+
+const toDir = path.resolve(rawName || '.')
+
+const inWorkspace = !rawName || '.' === rawName
+//目录
+const name = inWorkspace ? path.relative('../', process.cwd()) : rawName
+
+
+run()
+
+function run(){
+  quickGenerate(name, tmp, toDir, err => {
+    if (err) logger.fatal(err)
+    logger.success('quick generated "%s".', name)
+  })
+}
+
+
+

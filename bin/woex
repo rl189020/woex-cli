@@ -7,6 +7,7 @@ program
     .version(require('../package').version)
     .usage('<command> [options]')
     .command('init', 'generate a new project from a template')
+    .command('quick', 'quick generate a new project')
     .command('list', 'list available official templates')
     .command('build', 'prototype a new project')
 
